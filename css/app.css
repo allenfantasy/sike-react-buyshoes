@@ -61,3 +61,78 @@ a {
   text-decoration: none;
 }
 */
+
+/*** Site ***/
+.site {
+  height: 100%;
+  flex-direction: row;
+}
+.site__main {
+  flex: 7 0;
+  flex-direction: row;
+  height: 100%;
+}
+.site__left-sidebar {
+  width: 170px;
+  position: fixed;
+  z-index: 1;
+  flex: 0 auto;
+}
+.site__content {
+  /**
+   * If flex-basis: auto
+   * when content has a lot of content
+   * it would squeeze the left-sidebar
+   * (WHY?)
+   */
+  margin-left: 170px;
+  flex: 1 0;
+  background-color: rgb(246,155,161);
+}
+.site__content .products {
+  flex: 1 100%;
+  align-self: stretch;
+  flex-direction: row;
+  flex-flow: wrap;
+  height: 100%;
+  overflow-y: scroll;
+}
+.site__content .product {
+  flex: 1 50%;
+  width: 50%;
+  height: 250px;
+  margin-bottom: 20px;
+  background-color: rgb(161,253,161);
+}
+
+.site__right-sidebar {
+  flex: 3 0;
+  height: 100%;
+}
+
+.site__right-sidebar .cart {
+  flex: 1 0;  
+}
+
+.site__right-sidebar .checkout {
+  flex: 0 auto;
+  height: 300px;
+  background-color: rgba(0,0,255,0.3);
+}
+
+.cart {
+  overflow-y: scroll;
+}
+.cart__title {
+  position: absolute;
+  top: 0;
+  height: 30px;
+}
+.cart__content {
+  margin-top: 30px;
+}
+.cart-item {
+  height: 150px;
+  margin-bottom: 20px;
+  background-color: rgba(0,255,0,0.3);
+}
