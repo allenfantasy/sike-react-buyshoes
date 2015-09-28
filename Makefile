@@ -7,6 +7,9 @@ css:
 server:
 	browser-sync start --server --files='index.html,bundle/app.css,js/app.js'
 
+.PHONY: push
+push:
+	git push origin master && git push origin master:gh-pages
 
 .PHONY: clean
 clean:
