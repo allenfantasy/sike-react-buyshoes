@@ -25,7 +25,7 @@ body, div, span, a, img, h1, h2, h3, h4, h5 {
 }
 
 body {
-  background: url("/img/bg.jpg") bottom no-repeat;
+  background: url("../img/bg.jpg") bottom no-repeat;
   background-size: 100% 50%;
   color: #202020;
   font-family: "Avenir Next", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
