@@ -422,7 +422,10 @@ body.js-show-right-sidebar .site__right-sidebar-toggle {
   }
 
   .site__right-sidebar-toggle {
-    display: block;
+    display: flex;
+  }
+  body.js-show-right-sidebar .site__right-sidebar-toggle {
+    width: 20%;
   }
 
   .checkout {

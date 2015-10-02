@@ -1025,7 +1025,13 @@ body.js-show-right-sidebar .site__right-sidebar-toggle {
   }
 
   .site__right-sidebar-toggle {
-    display: block;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  body.js-show-right-sidebar .site__right-sidebar-toggle {
+    width: 20%;
   }
 
   .checkout {
