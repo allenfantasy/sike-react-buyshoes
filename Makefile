@@ -7,6 +7,10 @@ css:
 server:
 	browser-sync start --server --files='index.html,bundle/app.css,js/app.js'
 
+.PHONY: dev
+dev:
+	make css && make server
+
 .PHONY: push
 push:
 	git push origin master && git push origin master:gh-pages
