@@ -423,7 +423,7 @@ th {
   padding: 0;
 }
 
-body, html {
+body, html, #root {
   width: 100%;
   height: 100%;
 }
@@ -766,7 +766,8 @@ a {
           flex-direction: row;
   padding: 0 20px;
 }
-.cart-item__qty .adjust-qty {
+
+.adjust-qty {
   -webkit-box-flex: 0;
   -webkit-flex: 0 33%;
       -ms-flex: 0 33%;
@@ -797,6 +798,9 @@ a {
   background-color: #f7f8fa;
   /*color: #c4ccda;*/
   border-radius: 50%;
+}
+.adjust-qty__button.adjust-qty__button--gray {
+  background-color: #d8d8d8;
 }
 .adjust-qty__number {
   -webkit-box-flex: 1;
