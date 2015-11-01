@@ -5,7 +5,11 @@ css:
 
 .PHONY: js
 js:
-	babel --watch js/app.jsx --out-file build/app.js
+	webpack -d --watch js/app.jsx build/app.js --module-bind "jsx=babel" --module-bind "js=babel" --progress 
+
+.PHONY: minjs
+minjs:
+	webpack -p js/app.jsx build/app.js --module-bind "jsx=babel" --module-bind "js=babel" --progress 
 
 .PHONY: server
 server:
