@@ -2,17 +2,21 @@
 
 import React from 'react';
 
+// Stores
+import CartStore from '../stores/CartStore'; 
+let {addCartItem, updateCartItemQuantity} = CartStore;
+
 let QuantityControl = React.createClass({
   render() {
-    let quantity = this.props.item.quantity;
+    let {id, quantity} = this.props.item;
     let className = "adjust-qty__button";
     if (this.props.variant) className += " adjust-qty__button--" + this.props.variant;
 
     return (
       <div className="adjust-qty">
-        <a className={ className }>—</a>
+        <a onClick={updateCartItemQuantity.bind(null, id, quantity - 1)} className={ className }>—</a>
         <div className="adjust-qty__number">{quantity}</div>
-        <a className={ className }>+</a>
+        <a onClick={updateCartItemQuantity.bind(null, id, quantity + 1)} className={ className }>+</a>
       </div>
     );
   }

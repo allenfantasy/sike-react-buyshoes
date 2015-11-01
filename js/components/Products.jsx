@@ -1,10 +1,13 @@
 'use strict';
-
 import React from 'react';
 
-import {cartItems, products} from '../data';
+// Other Components
+import QuantityControl from './QuantityControl.jsx';
 
-import QuantityControl from './QuantityControl';
+// Stores
+import CartStore from '../stores/CartStore'; 
+let {addCartItem} = CartStore;
+let cartItems = CartStore.getCartItems();
 
 let Product = React.createClass({
   renderControl() {
@@ -13,7 +16,7 @@ let Product = React.createClass({
       return <QuantityControl item={cartItems[id]} variant="gray" />;
     } else {
       return (
-        <a className="product__add">
+        <a onClick={addCartItem.bind(null, id)}  className="product__add">
           <img className="product__add__icon" src="img/cart-icon.svg" />
         </a>
       );
@@ -29,7 +32,7 @@ let Product = React.createClass({
           <img className="product__img" src={imagePath} alt={name} />
           { this.renderControl() }
           <div className="product__price">
-            {price}
+            {'$' + price}
           </div>
         </div>
 
@@ -39,11 +42,27 @@ let Product = React.createClass({
           </div>
 
           <img className="product__heart" src="img/heart.svg" alt="" />
-        </div>{/* product__description */}
+        </div>
 
       </div>
     );
   }
 });
 
-module.exports = Product;
+let Products = React.createClass({
+  componentDidMount() {
+    CartStore.addChangeListener(this.forceUpdate.bind(this));
+  },
+  render() {
+    let productList = Object.keys(this.props.products).map((key) => {
+      return <Product key={key} product={this.props.products[key]} />;
+    })
+    return (
+      <div className="products">
+        { productList }
+      </div>
+    )
+  }
+});
+
+module.exports = Products;

@@ -2,22 +2,27 @@
 
 import React from 'react';
 
-// global shared variables
-import {cartItems, products} from '../data';
+import {products} from '../data';
+
+// Stores
+import CartStore from '../stores/CartStore'; 
 
 let Checkout = React.createClass({
+  componentDidMount() {
+    CartStore.addChangeListener(this.forceUpdate.bind(this));
+  },
   render() {
-    let items = Object.keys(this.props.items).map((key) => {
-      let item = Object.assign({}, this.props.items[key]);
+    let cartItems = CartStore.getCartItems();
+    let items = Object.keys(cartItems).map((key) => {
+      let item = Object.assign({}, cartItems[key]);
       item.price = products[key].price;
       return item;
     });
 
     let total = items.reduce((prev, currItem) => {
       return prev + currItem.quantity * currItem.price;
-    }, 0);
-    // this.props.items
-    //let total = 
+    }, 0).toFixed(2);
+
     return (
       <div className="checkout">
         <hr className="checkout__divider" />
@@ -32,7 +37,7 @@ let Checkout = React.createClass({
             </div>
             <div className="checkout__total">
               <div className="checkout__amount checkout__amount--saving">
-                { total }       
+                { total }
               </div>
             </div>
 

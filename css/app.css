@@ -125,6 +125,9 @@ a {
   justify-content: center;
   align-items: center;
 }
+.product__add:hover {
+  cursor: pointer;
+}
 .product__add__icon {
   width: 36px;
   height: 36px;
@@ -228,6 +231,9 @@ a {
   flex: 0 50px;
   width: 25px;
   height: 25px;
+}
+.cart-item__trash:hover {
+  cursor: pointer;
 }
 .cart-item__qty {
   flex-direction: row;

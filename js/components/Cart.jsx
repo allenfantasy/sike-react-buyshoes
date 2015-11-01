@@ -3,10 +3,13 @@
 import React from 'react';
 import Ps from 'perfect-scrollbar';
 
-import QuantityControl from './QuantityControl';
+import QuantityControl from './QuantityControl.jsx';
 
-// global shared variables
-import {cartItems, products} from '../data';
+import {products} from '../data';
+
+// Stores
+import CartStore from '../stores/CartStore'; 
+let {removeCartItem} = CartStore; 
 
 let Cart = React.createClass({
   renderItem(item) {
@@ -26,7 +29,7 @@ let Cart = React.createClass({
             <div className="cart-item__price">{price}</div>
           </div>
 
-          <img className="cart-item__trash" src="img/trash-icon.svg" alt="" />
+          <img onClick={removeCartItem.bind(null, id)} className="cart-item__trash" src="img/trash-icon.svg" alt="" />
 
         </div>
 
@@ -41,11 +44,13 @@ let Cart = React.createClass({
     let $cart = React.findDOMNode(this.refs.cart);
 
     Ps.initialize($cart);
+    CartStore.addChangeListener(this.forceUpdate.bind(this));
   },
 
   render() {
-    let cartItemList = Object.keys(this.props.items).map((key) => {
-      let item = Object.assign({}, this.props.items[key]);
+    let cartItems = CartStore.getCartItems();
+    let cartItemList = Object.keys(cartItems).map((key) => {
+      let item = Object.assign({}, cartItems[key]);
       item.name = key;
       item.imagePath = products[key].imagePath;
       item.price = products[key].price;
