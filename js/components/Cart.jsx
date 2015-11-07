@@ -4,6 +4,9 @@ import React from 'react';
 import Ps from 'perfect-scrollbar';
 
 import QuantityControl from './QuantityControl.jsx';
+import ConnectedStore from './ConnectedStore.jsx';
+
+import MakeConnectedComponent from './MakeConnectedComponent';
 
 import {products} from '../data';
 
@@ -48,7 +51,7 @@ let Cart = React.createClass({
   },
 
   render() {
-    let cartItems = CartStore.getCartItems();
+    let {cartItems} = this.props;
     let cartItemList = Object.keys(cartItems).map((key) => {
       let item = Object.assign({}, cartItems[key]);
       item.name = key;
@@ -67,4 +70,4 @@ let Cart = React.createClass({
   }
 })
 
-module.exports = Cart;
+module.exports = MakeConnectedComponent(Cart, CartStore, "cartItems");

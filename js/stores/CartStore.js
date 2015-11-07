@@ -46,8 +46,13 @@ module.exports = {
     return _cartItems;
   },
 
+  // Alias method
+  cartItems() {
+    return _cartItems;
+  },
+
   addChangeListener(callback) {
-    emitter.addListener('change', callback)
+    emitter.addListener('change', callback);
   },
 
   removeChangeListener(callback) {

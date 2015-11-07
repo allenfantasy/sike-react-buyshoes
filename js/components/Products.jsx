@@ -3,34 +3,42 @@ import React from 'react';
 
 // Other Components
 import QuantityControl from './QuantityControl.jsx';
+import ConnectedStore from './ConnectedStore.jsx';
+
+import connect from './connect';
 
 // Stores
 import CartStore from '../stores/CartStore'; 
+import LikeStore from '../stores/LikeStore';
+import ProductStore from '../stores/ProductStore';
+
 let {addCartItem} = CartStore;
-let cartItems = CartStore.getCartItems();
+let toggleLike = LikeStore.toggle;
 
 let Product = React.createClass({
-  renderControl() {
-    let id = this.props.product.id;
+  renderControl(id) {
+    let {cartItems} = this.props;
     if (cartItems[id]) {
       return <QuantityControl item={cartItems[id]} variant="gray" />;
     } else {
       return (
-        <a onClick={addCartItem.bind(null, id)}  className="product__add">
+        <a onClick={addCartItem.bind(CartStore, id)}  className="product__add">
           <img className="product__add__icon" src="img/cart-icon.svg" />
         </a>
       );
     }
   },
   render() {
-    let {name, price, imagePath} = this.props.product;
+    let {product, likeItems} = this.props;
+    let {id, name, price, imagePath} = product;
+    let isLiked = likeItems[id];
 
     return (
       <div className="product">
 
         <div className="product__display">
           <img className="product__img" src={imagePath} alt={name} />
-          { this.renderControl() }
+          { this.renderControl(id) }
           <div className="product__price">
             {'$' + price}
           </div>
@@ -41,7 +49,7 @@ let Product = React.createClass({
             {name}
           </div>
 
-          <img className="product__heart" src="img/heart.svg" alt="" />
+          <img onClick={toggleLike.bind(LikeStore, id)} className="product__heart" src={isLiked ? "img/heart-liked.svg" : "img/heart.svg"} alt="" />
         </div>
 
       </div>
@@ -50,12 +58,11 @@ let Product = React.createClass({
 });
 
 let Products = React.createClass({
-  componentDidMount() {
-    CartStore.addChangeListener(this.forceUpdate.bind(this));
-  },
   render() {
-    let productList = Object.keys(this.props.products).map((key) => {
-      return <Product key={key} product={this.props.products[key]} />;
+    let {cartItems, likeItems, products} = this.props;
+
+    let productList = Object.keys(products).map((key) => {
+      return <Product key={key} product={products[key]} likeItems={likeItems} cartItems={cartItems} />;
     })
     return (
       <div className="products">
@@ -65,4 +72,9 @@ let Products = React.createClass({
   }
 });
 
-module.exports = Products;
+@connect(LikeStore, 'likeItems')
+@connect(CartStore, 'cartItems')
+@connect(ProductStore, 'filteredProducts')
+class ConnectedProducts extends Products {};
+
+module.exports = ConnectedProducts;
