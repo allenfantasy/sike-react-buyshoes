@@ -1,10 +1,10 @@
 'use strict';
 
 import EventEmitter from 'events';
-//import util from '../lib/util';
+import util from '../lib/util';
 
 let emitter = new EventEmitter();
-//let {entries} = util;
+let {entries} = util;
 
 function emitChange() {
   emitter.emit('change');
@@ -12,7 +12,7 @@ function emitChange() {
 
 // global shared variables
 let _products = require('../data').products;
-//for (let [k, v] of entries(_products)) products[k].liked = false;
+for (let [k, v] of entries(_products)) v.liked = false;
 
 let _showOnlyLike = false;
 
@@ -21,8 +21,25 @@ module.exports = {
     return _products;
   },
 
+  showOnlyLike() {
+    return _showOnlyLike;
+  },
+
+  toggleLike(id) {
+    _products[id].liked = !_products[id].liked;
+    emitChange();
+  },
+
   filteredProducts() {
-    return _products;
+    if (_showOnlyLike) {
+      let _filteredProducts = {};
+      for (let [k, v] of entries(_products)) {
+        if (v.liked) _filteredProducts[k] = v;
+      }
+      return _filteredProducts;
+    } else {
+      return _products;
+    }
   },
 
   toggleShowOnlyLike() {

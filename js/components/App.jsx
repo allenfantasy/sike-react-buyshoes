@@ -2,9 +2,6 @@
 
 import React from 'react';
 
-// global shared variables
-import {products} from '../data';
-
 // Components
 import SiteTitle from './SiteTitle.jsx';
 import Products from './Products.jsx';
@@ -22,7 +19,7 @@ let App = React.createClass({
             <SiteTitle />
           </div>
           <div className="site__content">
-            <Products products={products} />
+            <Products />
           </div>
         </div>
 

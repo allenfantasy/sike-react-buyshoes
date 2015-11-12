@@ -1,14 +1,24 @@
 import React from 'react';
 
-let SiteTitle = React.createClass({
+import connect from './connect';
+
+import ProductStore from '../stores/ProductStore';
+
+let {toggleShowOnlyLike} = ProductStore;
+
+class SiteTitle extends React.Component {
   render() {
+    let {showOnlyLike} = this.props;
     return (
       <div className="title">
         <h2>Buy Some Shoes</h2>
-        <img className="title__heart" src="img/heart.svg" />
+        <img onClick={toggleShowOnlyLike.bind(ProductStore)} className="title__heart" src={showOnlyLike ? "img/heart-liked.svg" : "img/heart.svg"} />
       </div>
     )
   }
-});
+};
 
-module.exports = SiteTitle;
+@connect(ProductStore, 'showOnlyLike')
+class ConnectedSiteTitle extends SiteTitle {};
+
+module.exports = ConnectedSiteTitle;

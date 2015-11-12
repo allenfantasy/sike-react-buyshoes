@@ -13,9 +13,13 @@ import LikeStore from '../stores/LikeStore';
 import ProductStore from '../stores/ProductStore';
 
 let {addCartItem} = CartStore;
-let toggleLike = LikeStore.toggle;
 
 let Product = React.createClass({
+  like(id) {
+    LikeStore.toggle(id);
+    ProductStore.toggleLike(id);
+  },
+
   renderControl(id) {
     let {cartItems} = this.props;
     if (cartItems[id]) {
@@ -49,7 +53,7 @@ let Product = React.createClass({
             {name}
           </div>
 
-          <img onClick={toggleLike.bind(LikeStore, id)} className="product__heart" src={isLiked ? "img/heart-liked.svg" : "img/heart.svg"} alt="" />
+          <img onClick={this.like.bind(null, id)} className="product__heart" src={isLiked ? "img/heart-liked.svg" : "img/heart.svg"} alt="" />
         </div>
 
       </div>
@@ -59,10 +63,10 @@ let Product = React.createClass({
 
 let Products = React.createClass({
   render() {
-    let {cartItems, likeItems, products} = this.props;
+    let {cartItems, likeItems, filteredProducts} = this.props;
 
-    let productList = Object.keys(products).map((key) => {
-      return <Product key={key} product={products[key]} likeItems={likeItems} cartItems={cartItems} />;
+    let productList = Object.keys(filteredProducts).map((key) => {
+      return <Product key={key} product={filteredProducts[key]} likeItems={likeItems} cartItems={cartItems} />;
     })
     return (
       <div className="products">

@@ -18686,10 +18686,6 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	// global shared variables
-	
-	var _data = __webpack_require__(/*! ../data */ 158);
-	
 	// Components
 	
 	var _SiteTitleJsx = __webpack_require__(/*! ./SiteTitle.jsx */ 159);
@@ -18700,11 +18696,11 @@
 	
 	var _ProductsJsx2 = _interopRequireDefault(_ProductsJsx);
 	
-	var _CartJsx = __webpack_require__(/*! ./Cart.jsx */ 169);
+	var _CartJsx = __webpack_require__(/*! ./Cart.jsx */ 170);
 	
 	var _CartJsx2 = _interopRequireDefault(_CartJsx);
 	
-	var _CheckoutJsx = __webpack_require__(/*! ./Checkout.jsx */ 190);
+	var _CheckoutJsx = __webpack_require__(/*! ./Checkout.jsx */ 191);
 	
 	var _CheckoutJsx2 = _interopRequireDefault(_CheckoutJsx);
 	
@@ -18728,7 +18724,7 @@
 	        _react2['default'].createElement(
 	          'div',
 	          { className: 'site__content' },
-	          _react2['default'].createElement(_ProductsJsx2['default'], { products: _data.products })
+	          _react2['default'].createElement(_ProductsJsx2['default'], null)
 	        )
 	      ),
 	      _react2['default'].createElement(
@@ -18860,32 +18856,81 @@
   \*************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var SiteTitle = _react2["default"].createClass({
-	  displayName: "SiteTitle",
+	var _connect = __webpack_require__(/*! ./connect */ 165);
 	
-	  render: function render() {
-	    return _react2["default"].createElement(
-	      "div",
-	      { className: "title" },
-	      _react2["default"].createElement(
-	        "h2",
-	        null,
-	        "Buy Some Shoes"
-	      ),
-	      _react2["default"].createElement("img", { className: "title__heart", src: "img/heart.svg" })
-	    );
+	var _connect2 = _interopRequireDefault(_connect);
+	
+	var _storesProductStore = __webpack_require__(/*! ../stores/ProductStore */ 168);
+	
+	var _storesProductStore2 = _interopRequireDefault(_storesProductStore);
+	
+	var toggleShowOnlyLike = _storesProductStore2['default'].toggleShowOnlyLike;
+	
+	var SiteTitle = (function (_React$Component) {
+	  _inherits(SiteTitle, _React$Component);
+	
+	  function SiteTitle() {
+	    _classCallCheck(this, SiteTitle);
+	
+	    _get(Object.getPrototypeOf(SiteTitle.prototype), 'constructor', this).apply(this, arguments);
 	  }
-	});
 	
-	module.exports = SiteTitle;
+	  _createClass(SiteTitle, [{
+	    key: 'render',
+	    value: function render() {
+	      var showOnlyLike = this.props.showOnlyLike;
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'title' },
+	        _react2['default'].createElement(
+	          'h2',
+	          null,
+	          'Buy Some Shoes'
+	        ),
+	        _react2['default'].createElement('img', { onClick: toggleShowOnlyLike.bind(_storesProductStore2['default']), className: 'title__heart', src: showOnlyLike ? "img/heart-liked.svg" : "img/heart.svg" })
+	      );
+	    }
+	  }]);
+	
+	  return SiteTitle;
+	})(_react2['default'].Component);
+	
+	;
+	
+	var ConnectedSiteTitle = (function (_SiteTitle) {
+	  _inherits(ConnectedSiteTitle, _SiteTitle);
+	
+	  function ConnectedSiteTitle() {
+	    _classCallCheck(this, _ConnectedSiteTitle);
+	
+	    _get(Object.getPrototypeOf(_ConnectedSiteTitle.prototype), 'constructor', this).apply(this, arguments);
+	  }
+	
+	  var _ConnectedSiteTitle = ConnectedSiteTitle;
+	  ConnectedSiteTitle = (0, _connect2['default'])(_storesProductStore2['default'], 'showOnlyLike')(ConnectedSiteTitle) || ConnectedSiteTitle;
+	  return ConnectedSiteTitle;
+	})(SiteTitle);
+	
+	;
+	
+	module.exports = ConnectedSiteTitle;
 
 /***/ },
 /* 160 */
@@ -18938,10 +18983,13 @@
 	
 	var addCartItem = _storesCartStore2['default'].addCartItem;
 	
-	var toggleLike = _storesLikeStore2['default'].toggle;
-	
 	var Product = _react2['default'].createClass({
 	  displayName: 'Product',
+	
+	  like: function like(id) {
+	    _storesLikeStore2['default'].toggle(id);
+	    _storesProductStore2['default'].toggleLike(id);
+	  },
 	
 	  renderControl: function renderControl(id) {
 	    var cartItems = this.props.cartItems;
@@ -18989,7 +19037,7 @@
 	          { className: 'product__name' },
 	          name
 	        ),
-	        _react2['default'].createElement('img', { onClick: toggleLike.bind(_storesLikeStore2['default'], id), className: 'product__heart', src: isLiked ? "img/heart-liked.svg" : "img/heart.svg", alt: '' })
+	        _react2['default'].createElement('img', { onClick: this.like.bind(null, id), className: 'product__heart', src: isLiked ? "img/heart-liked.svg" : "img/heart.svg", alt: '' })
 	      )
 	    );
 	  }
@@ -19002,10 +19050,10 @@
 	    var _props2 = this.props;
 	    var cartItems = _props2.cartItems;
 	    var likeItems = _props2.likeItems;
-	    var products = _props2.products;
+	    var filteredProducts = _props2.filteredProducts;
 	
-	    var productList = Object.keys(products).map(function (key) {
-	      return _react2['default'].createElement(Product, { key: key, product: products[key], likeItems: likeItems, cartItems: cartItems });
+	    var productList = Object.keys(filteredProducts).map(function (key) {
+	      return _react2['default'].createElement(Product, { key: key, product: filteredProducts[key], likeItems: likeItems, cartItems: cartItems });
 	    });
 	    return _react2['default'].createElement(
 	      'div',
@@ -19665,16 +19713,20 @@
 
 	'use strict';
 	
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _events = __webpack_require__(/*! events */ 163);
 	
 	var _events2 = _interopRequireDefault(_events);
 	
-	//import util from '../lib/util';
+	var _libUtil = __webpack_require__(/*! ../lib/util */ 169);
+	
+	var _libUtil2 = _interopRequireDefault(_libUtil);
 	
 	var emitter = new _events2['default']();
-	//let {entries} = util;
+	var entries = _libUtil2['default'].entries;
 	
 	function emitChange() {
 	  emitter.emit('change');
@@ -19682,7 +19734,32 @@
 	
 	// global shared variables
 	var _products = __webpack_require__(/*! ../data */ 158).products;
-	//for (let [k, v] of entries(_products)) products[k].liked = false;
+	var _iteratorNormalCompletion = true;
+	var _didIteratorError = false;
+	var _iteratorError = undefined;
+	
+	try {
+	  for (var _iterator = entries(_products)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	    var _step$value = _slicedToArray(_step.value, 2);
+	
+	    var k = _step$value[0];
+	    var v = _step$value[1];
+	    v.liked = false;
+	  }
+	} catch (err) {
+	  _didIteratorError = true;
+	  _iteratorError = err;
+	} finally {
+	  try {
+	    if (!_iteratorNormalCompletion && _iterator['return']) {
+	      _iterator['return']();
+	    }
+	  } finally {
+	    if (_didIteratorError) {
+	      throw _iteratorError;
+	    }
+	  }
+	}
 	
 	var _showOnlyLike = false;
 	
@@ -19691,8 +19768,50 @@
 	    return _products;
 	  },
 	
+	  showOnlyLike: function showOnlyLike() {
+	    return _showOnlyLike;
+	  },
+	
+	  toggleLike: function toggleLike(id) {
+	    _products[id].liked = !_products[id].liked;
+	    emitChange();
+	  },
+	
 	  filteredProducts: function filteredProducts() {
-	    return _products;
+	    if (_showOnlyLike) {
+	      var _filteredProducts = {};
+	      var _iteratorNormalCompletion2 = true;
+	      var _didIteratorError2 = false;
+	      var _iteratorError2 = undefined;
+	
+	      try {
+	        for (var _iterator2 = entries(_products)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	          var _step2$value = _slicedToArray(_step2.value, 2);
+	
+	          var k = _step2$value[0];
+	          var v = _step2$value[1];
+	
+	          if (v.liked) _filteredProducts[k] = v;
+	        }
+	      } catch (err) {
+	        _didIteratorError2 = true;
+	        _iteratorError2 = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion2 && _iterator2['return']) {
+	            _iterator2['return']();
+	          }
+	        } finally {
+	          if (_didIteratorError2) {
+	            throw _iteratorError2;
+	          }
+	        }
+	      }
+	
+	      return _filteredProducts;
+	    } else {
+	      return _products;
+	    }
 	  },
 	
 	  toggleShowOnlyLike: function toggleShowOnlyLike() {
@@ -19711,6 +19830,92 @@
 
 /***/ },
 /* 169 */
+/*!************************!*\
+  !*** ./js/lib/util.js ***!
+  \************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	// Implement object iterator
+	// thus we can use the almighty 'for of' loop
+	
+	// @see https://esdiscuss.org/topic/es6-iteration-over-object-values
+	var marked0$0 = [entries].map(regeneratorRuntime.mark);
+	function entries(obj) {
+	  var _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, key;
+	
+	  return regeneratorRuntime.wrap(function entries$(context$1$0) {
+	    while (1) switch (context$1$0.prev = context$1$0.next) {
+	      case 0:
+	        _iteratorNormalCompletion = true;
+	        _didIteratorError = false;
+	        _iteratorError = undefined;
+	        context$1$0.prev = 3;
+	        _iterator = Object.keys(obj)[Symbol.iterator]();
+	
+	      case 5:
+	        if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
+	          context$1$0.next = 12;
+	          break;
+	        }
+	
+	        key = _step.value;
+	        context$1$0.next = 9;
+	        return [key, obj[key]];
+	
+	      case 9:
+	        _iteratorNormalCompletion = true;
+	        context$1$0.next = 5;
+	        break;
+	
+	      case 12:
+	        context$1$0.next = 18;
+	        break;
+	
+	      case 14:
+	        context$1$0.prev = 14;
+	        context$1$0.t0 = context$1$0['catch'](3);
+	        _didIteratorError = true;
+	        _iteratorError = context$1$0.t0;
+	
+	      case 18:
+	        context$1$0.prev = 18;
+	        context$1$0.prev = 19;
+	
+	        if (!_iteratorNormalCompletion && _iterator['return']) {
+	          _iterator['return']();
+	        }
+	
+	      case 21:
+	        context$1$0.prev = 21;
+	
+	        if (!_didIteratorError) {
+	          context$1$0.next = 24;
+	          break;
+	        }
+	
+	        throw _iteratorError;
+	
+	      case 24:
+	        return context$1$0.finish(21);
+	
+	      case 25:
+	        return context$1$0.finish(18);
+	
+	      case 26:
+	      case 'end':
+	        return context$1$0.stop();
+	    }
+	  }, marked0$0[0], this, [[3, 14, 18, 26], [19,, 21, 25]]);
+	}
+	
+	module.exports = {
+	  entries: entries
+	};
+
+/***/ },
+/* 170 */
 /*!********************************!*\
   !*** ./js/components/Cart.jsx ***!
   \********************************/
@@ -19724,7 +19929,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _perfectScrollbar = __webpack_require__(/*! perfect-scrollbar */ 170);
+	var _perfectScrollbar = __webpack_require__(/*! perfect-scrollbar */ 171);
 	
 	var _perfectScrollbar2 = _interopRequireDefault(_perfectScrollbar);
 	
@@ -19834,7 +20039,7 @@
 	module.exports = (0, _MakeConnectedComponent2['default'])(Cart, _storesCartStore2['default'], "cartItems");
 
 /***/ },
-/* 170 */
+/* 171 */
 /*!**************************************!*\
   !*** ./~/perfect-scrollbar/index.js ***!
   \**************************************/
@@ -19845,10 +20050,10 @@
 	 */
 	'use strict';
 	
-	module.exports = __webpack_require__(/*! ./src/js/main */ 171);
+	module.exports = __webpack_require__(/*! ./src/js/main */ 172);
 
 /***/ },
-/* 171 */
+/* 172 */
 /*!********************************************!*\
   !*** ./~/perfect-scrollbar/src/js/main.js ***!
   \********************************************/
@@ -19859,9 +20064,9 @@
 	 */
 	'use strict';
 	
-	var destroy = __webpack_require__(/*! ./plugin/destroy */ 172),
-	    initialize = __webpack_require__(/*! ./plugin/initialize */ 180),
-	    update = __webpack_require__(/*! ./plugin/update */ 189);
+	var destroy = __webpack_require__(/*! ./plugin/destroy */ 173),
+	    initialize = __webpack_require__(/*! ./plugin/initialize */ 181),
+	    update = __webpack_require__(/*! ./plugin/update */ 190);
 	
 	module.exports = {
 	  initialize: initialize,
@@ -19870,7 +20075,7 @@
 	};
 
 /***/ },
-/* 172 */
+/* 173 */
 /*!******************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/plugin/destroy.js ***!
   \******************************************************/
@@ -19881,9 +20086,9 @@
 	 */
 	'use strict';
 	
-	var d = __webpack_require__(/*! ../lib/dom */ 173),
-	    h = __webpack_require__(/*! ../lib/helper */ 174),
-	    instances = __webpack_require__(/*! ./instances */ 176);
+	var d = __webpack_require__(/*! ../lib/dom */ 174),
+	    h = __webpack_require__(/*! ../lib/helper */ 175),
+	    instances = __webpack_require__(/*! ./instances */ 177);
 	
 	module.exports = function (element) {
 	  var i = instances.get(element);
@@ -19903,7 +20108,7 @@
 	};
 
 /***/ },
-/* 173 */
+/* 174 */
 /*!***********************************************!*\
   !*** ./~/perfect-scrollbar/src/js/lib/dom.js ***!
   \***********************************************/
@@ -19988,7 +20193,7 @@
 	};
 
 /***/ },
-/* 174 */
+/* 175 */
 /*!**************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/lib/helper.js ***!
   \**************************************************/
@@ -19999,8 +20204,8 @@
 	 */
 	'use strict';
 	
-	var cls = __webpack_require__(/*! ./class */ 175),
-	    d = __webpack_require__(/*! ./dom */ 173);
+	var cls = __webpack_require__(/*! ./class */ 176),
+	    d = __webpack_require__(/*! ./dom */ 174);
 	
 	exports.toInt = function (x) {
 	  return parseInt(x, 10) || 0;
@@ -20073,7 +20278,7 @@
 	};
 
 /***/ },
-/* 175 */
+/* 176 */
 /*!*************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/lib/class.js ***!
   \*************************************************/
@@ -20126,7 +20331,7 @@
 	};
 
 /***/ },
-/* 176 */
+/* 177 */
 /*!********************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/plugin/instances.js ***!
   \********************************************************/
@@ -20137,11 +20342,11 @@
 	 */
 	'use strict';
 	
-	var d = __webpack_require__(/*! ../lib/dom */ 173),
-	    defaultSettings = __webpack_require__(/*! ./default-setting */ 177),
-	    EventManager = __webpack_require__(/*! ../lib/event-manager */ 178),
-	    guid = __webpack_require__(/*! ../lib/guid */ 179),
-	    h = __webpack_require__(/*! ../lib/helper */ 174);
+	var d = __webpack_require__(/*! ../lib/dom */ 174),
+	    defaultSettings = __webpack_require__(/*! ./default-setting */ 178),
+	    EventManager = __webpack_require__(/*! ../lib/event-manager */ 179),
+	    guid = __webpack_require__(/*! ../lib/guid */ 180),
+	    h = __webpack_require__(/*! ../lib/helper */ 175);
 	
 	var instances = {};
 	
@@ -20241,7 +20446,7 @@
 	};
 
 /***/ },
-/* 177 */
+/* 178 */
 /*!**************************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/plugin/default-setting.js ***!
   \**************************************************************/
@@ -20268,7 +20473,7 @@
 	};
 
 /***/ },
-/* 178 */
+/* 179 */
 /*!*********************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/lib/event-manager.js ***!
   \*********************************************************/
@@ -20350,7 +20555,7 @@
 	module.exports = EventManager;
 
 /***/ },
-/* 179 */
+/* 180 */
 /*!************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/lib/guid.js ***!
   \************************************************/
@@ -20371,7 +20576,7 @@
 	})();
 
 /***/ },
-/* 180 */
+/* 181 */
 /*!*********************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/plugin/initialize.js ***!
   \*********************************************************/
@@ -20382,19 +20587,19 @@
 	 */
 	'use strict';
 	
-	var cls = __webpack_require__(/*! ../lib/class */ 175),
-	    h = __webpack_require__(/*! ../lib/helper */ 174),
-	    instances = __webpack_require__(/*! ./instances */ 176),
-	    updateGeometry = __webpack_require__(/*! ./update-geometry */ 181);
+	var cls = __webpack_require__(/*! ../lib/class */ 176),
+	    h = __webpack_require__(/*! ../lib/helper */ 175),
+	    instances = __webpack_require__(/*! ./instances */ 177),
+	    updateGeometry = __webpack_require__(/*! ./update-geometry */ 182);
 	
 	// Handlers
-	var clickRailHandler = __webpack_require__(/*! ./handler/click-rail */ 182),
-	    dragScrollbarHandler = __webpack_require__(/*! ./handler/drag-scrollbar */ 183),
-	    keyboardHandler = __webpack_require__(/*! ./handler/keyboard */ 184),
-	    mouseWheelHandler = __webpack_require__(/*! ./handler/mouse-wheel */ 185),
-	    nativeScrollHandler = __webpack_require__(/*! ./handler/native-scroll */ 186),
-	    selectionHandler = __webpack_require__(/*! ./handler/selection */ 187),
-	    touchHandler = __webpack_require__(/*! ./handler/touch */ 188);
+	var clickRailHandler = __webpack_require__(/*! ./handler/click-rail */ 183),
+	    dragScrollbarHandler = __webpack_require__(/*! ./handler/drag-scrollbar */ 184),
+	    keyboardHandler = __webpack_require__(/*! ./handler/keyboard */ 185),
+	    mouseWheelHandler = __webpack_require__(/*! ./handler/mouse-wheel */ 186),
+	    nativeScrollHandler = __webpack_require__(/*! ./handler/native-scroll */ 187),
+	    selectionHandler = __webpack_require__(/*! ./handler/selection */ 188),
+	    touchHandler = __webpack_require__(/*! ./handler/touch */ 189);
 	
 	module.exports = function (element, userSettings) {
 	  userSettings = typeof userSettings === 'object' ? userSettings : {};
@@ -20423,7 +20628,7 @@
 	};
 
 /***/ },
-/* 181 */
+/* 182 */
 /*!**************************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/plugin/update-geometry.js ***!
   \**************************************************************/
@@ -20434,10 +20639,10 @@
 	 */
 	'use strict';
 	
-	var cls = __webpack_require__(/*! ../lib/class */ 175),
-	    d = __webpack_require__(/*! ../lib/dom */ 173),
-	    h = __webpack_require__(/*! ../lib/helper */ 174),
-	    instances = __webpack_require__(/*! ./instances */ 176);
+	var cls = __webpack_require__(/*! ../lib/class */ 176),
+	    d = __webpack_require__(/*! ../lib/dom */ 174),
+	    h = __webpack_require__(/*! ../lib/helper */ 175),
+	    instances = __webpack_require__(/*! ./instances */ 177);
 	
 	function getThumbSize(i, thumbSize) {
 	  if (i.settings.minScrollbarLength) {
@@ -20538,7 +20743,7 @@
 	};
 
 /***/ },
-/* 182 */
+/* 183 */
 /*!*****************************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/plugin/handler/click-rail.js ***!
   \*****************************************************************/
@@ -20549,9 +20754,9 @@
 	 */
 	'use strict';
 	
-	var h = __webpack_require__(/*! ../../lib/helper */ 174),
-	    instances = __webpack_require__(/*! ../instances */ 176),
-	    updateGeometry = __webpack_require__(/*! ../update-geometry */ 181);
+	var h = __webpack_require__(/*! ../../lib/helper */ 175),
+	    instances = __webpack_require__(/*! ../instances */ 177),
+	    updateGeometry = __webpack_require__(/*! ../update-geometry */ 182);
 	
 	function bindClickRailHandler(element, i) {
 	  function pageOffset(el) {
@@ -20608,7 +20813,7 @@
 	};
 
 /***/ },
-/* 183 */
+/* 184 */
 /*!*********************************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/plugin/handler/drag-scrollbar.js ***!
   \*********************************************************************/
@@ -20619,10 +20824,10 @@
 	 */
 	'use strict';
 	
-	var d = __webpack_require__(/*! ../../lib/dom */ 173),
-	    h = __webpack_require__(/*! ../../lib/helper */ 174),
-	    instances = __webpack_require__(/*! ../instances */ 176),
-	    updateGeometry = __webpack_require__(/*! ../update-geometry */ 181);
+	var d = __webpack_require__(/*! ../../lib/dom */ 174),
+	    h = __webpack_require__(/*! ../../lib/helper */ 175),
+	    instances = __webpack_require__(/*! ../instances */ 177),
+	    updateGeometry = __webpack_require__(/*! ../update-geometry */ 182);
 	
 	function bindMouseScrollXHandler(element, i) {
 	  var currentLeft = null;
@@ -20721,7 +20926,7 @@
 	};
 
 /***/ },
-/* 184 */
+/* 185 */
 /*!***************************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/plugin/handler/keyboard.js ***!
   \***************************************************************/
@@ -20732,9 +20937,9 @@
 	 */
 	'use strict';
 	
-	var h = __webpack_require__(/*! ../../lib/helper */ 174),
-	    instances = __webpack_require__(/*! ../instances */ 176),
-	    updateGeometry = __webpack_require__(/*! ../update-geometry */ 181);
+	var h = __webpack_require__(/*! ../../lib/helper */ 175),
+	    instances = __webpack_require__(/*! ../instances */ 177),
+	    updateGeometry = __webpack_require__(/*! ../update-geometry */ 182);
 	
 	function bindKeyboardHandler(element, i) {
 	  var hovered = false;
@@ -20855,7 +21060,7 @@
 	};
 
 /***/ },
-/* 185 */
+/* 186 */
 /*!******************************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/plugin/handler/mouse-wheel.js ***!
   \******************************************************************/
@@ -20866,9 +21071,9 @@
 	 */
 	'use strict';
 	
-	var h = __webpack_require__(/*! ../../lib/helper */ 174),
-	    instances = __webpack_require__(/*! ../instances */ 176),
-	    updateGeometry = __webpack_require__(/*! ../update-geometry */ 181);
+	var h = __webpack_require__(/*! ../../lib/helper */ 175),
+	    instances = __webpack_require__(/*! ../instances */ 177),
+	    updateGeometry = __webpack_require__(/*! ../update-geometry */ 182);
 	
 	function bindMouseWheelHandler(element, i) {
 	  var shouldPrevent = false;
@@ -21005,7 +21210,7 @@
 	};
 
 /***/ },
-/* 186 */
+/* 187 */
 /*!********************************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/plugin/handler/native-scroll.js ***!
   \********************************************************************/
@@ -21016,8 +21221,8 @@
 	 */
 	'use strict';
 	
-	var instances = __webpack_require__(/*! ../instances */ 176),
-	    updateGeometry = __webpack_require__(/*! ../update-geometry */ 181);
+	var instances = __webpack_require__(/*! ../instances */ 177),
+	    updateGeometry = __webpack_require__(/*! ../update-geometry */ 182);
 	
 	function bindNativeScrollHandler(element, i) {
 	  i.event.bind(element, 'scroll', function () {
@@ -21031,7 +21236,7 @@
 	};
 
 /***/ },
-/* 187 */
+/* 188 */
 /*!****************************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/plugin/handler/selection.js ***!
   \****************************************************************/
@@ -21042,9 +21247,9 @@
 	 */
 	'use strict';
 	
-	var h = __webpack_require__(/*! ../../lib/helper */ 174),
-	    instances = __webpack_require__(/*! ../instances */ 176),
-	    updateGeometry = __webpack_require__(/*! ../update-geometry */ 181);
+	var h = __webpack_require__(/*! ../../lib/helper */ 175),
+	    instances = __webpack_require__(/*! ../instances */ 177),
+	    updateGeometry = __webpack_require__(/*! ../update-geometry */ 182);
 	
 	function bindSelectionHandler(element, i) {
 	  function getRangeNode() {
@@ -21149,7 +21354,7 @@
 	};
 
 /***/ },
-/* 188 */
+/* 189 */
 /*!************************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/plugin/handler/touch.js ***!
   \************************************************************/
@@ -21160,8 +21365,8 @@
 	 */
 	'use strict';
 	
-	var instances = __webpack_require__(/*! ../instances */ 176),
-	    updateGeometry = __webpack_require__(/*! ../update-geometry */ 181);
+	var instances = __webpack_require__(/*! ../instances */ 177),
+	    updateGeometry = __webpack_require__(/*! ../update-geometry */ 182);
 	
 	function bindTouchHandler(element, i, supportsTouch, supportsIePointer) {
 	  function shouldPreventDefault(deltaX, deltaY) {
@@ -21325,7 +21530,7 @@
 	};
 
 /***/ },
-/* 189 */
+/* 190 */
 /*!*****************************************************!*\
   !*** ./~/perfect-scrollbar/src/js/plugin/update.js ***!
   \*****************************************************/
@@ -21336,10 +21541,10 @@
 	 */
 	'use strict';
 	
-	var d = __webpack_require__(/*! ../lib/dom */ 173),
-	    h = __webpack_require__(/*! ../lib/helper */ 174),
-	    instances = __webpack_require__(/*! ./instances */ 176),
-	    updateGeometry = __webpack_require__(/*! ./update-geometry */ 181);
+	var d = __webpack_require__(/*! ../lib/dom */ 174),
+	    h = __webpack_require__(/*! ../lib/helper */ 175),
+	    instances = __webpack_require__(/*! ./instances */ 177),
+	    updateGeometry = __webpack_require__(/*! ./update-geometry */ 182);
 	
 	module.exports = function (element) {
 	  var i = instances.get(element);
@@ -21368,7 +21573,7 @@
 	};
 
 /***/ },
-/* 190 */
+/* 191 */
 /*!************************************!*\
   !*** ./js/components/Checkout.jsx ***!
   \************************************/
