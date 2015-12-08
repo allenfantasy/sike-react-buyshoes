@@ -4,7 +4,7 @@ import React from 'react';
 
 // Stores
 import CartStore from '../stores/CartStore'; 
-let {addCartItem, updateCartItemQuantity} = CartStore;
+import {addCartItem, updateCartItemQuantity} from '../actions';
 
 let QuantityControl = React.createClass({
   render() {

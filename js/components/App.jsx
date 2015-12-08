@@ -8,6 +8,10 @@ import Products from './Products.jsx';
 import Cart from './Cart.jsx';
 import Checkout from './Checkout.jsx';
 
+let enableLogging = require('../LoggingService')
+
+enableLogging()
+
 // The App Component
 
 let App = React.createClass({

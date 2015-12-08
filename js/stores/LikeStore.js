@@ -1,6 +1,7 @@
 'use strict';
 
-import EventEmitter from 'events';
+import EventEmitter from 'events'
+import AppDispatcher from '../AppDispatcher' 
 
 let emitter = new EventEmitter();
 
@@ -12,25 +13,36 @@ let _likeItems = {
   //'jameson-vulc': true
 }
 
-module.exports = {
-  isLiked(productId) {
-    return _likeItems[productId];
-  },
+AppDispatcher.register((action) => {
+  let handler = handlers[action.type];
 
-  like(productId) {
+  handler && handler(action);
+});
+
+function isLiked(productId) {
+  return _likeItems[productId];
+};
+
+let handlers = {
+  like(action) {
+    let {productId} = action
     if (!_likeItems[productId]) _likeItems[productId] = true;
     emitChange();
   },
 
-  unlike(productId) {
+  unlike(action) {
+    let {productId} = action
     if (_likeItems[productId]) delete _likeItems[productId];
     emitChange();
   },
 
-  toggle(productId) {
-    this.isLiked(productId) ? this.unlike(productId) : this.like(productId);
-  },
+  toggleLikeProduct(action) {
+    let {productId} = action
+    isLiked(productId) ? handlers.unlike(action) : handlers.like(action)
+  }
+}
 
+module.exports = {
   getLikeItems() {
     return _likeItems;
   },

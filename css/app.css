@@ -181,7 +181,7 @@ a {
 }
 .cart__title {
   position: absolute;
-  z-index: 999;
+  z-index: 9;
   top: 0;
   height: 50px;
   padding: 10px 20px;
@@ -193,6 +193,14 @@ a {
 }
 .cart__content {
   margin-top: 50px;
+}
+
+.cart_undo {
+  position: absolute;
+  top: 0; right: 0;
+  padding: 15px 0;
+  justify-content: center;
+  z-index: 20;
 }
 
 /*** Cart Item ***/

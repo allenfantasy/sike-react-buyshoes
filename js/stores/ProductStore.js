@@ -1,6 +1,7 @@
 'use strict';
 
 import EventEmitter from 'events';
+import AppDispatcher from '../AppDispatcher' 
 import util from '../lib/util';
 
 let emitter = new EventEmitter();
@@ -16,6 +17,20 @@ for (let [k, v] of entries(_products)) v.liked = false;
 
 let _showOnlyLike = false;
 
+AppDispatcher.register((action) => {
+  let handler = handlers[action.type];
+
+  handler && handler(action);
+});
+
+let handlers = {
+  toggleLikeProduct(action) {
+    let {productId} = action
+    _products[productId].liked = !_products[productId].liked;
+    emitChange();
+  }
+}
+
 module.exports = {
   products() {
     return _products;
@@ -23,11 +38,6 @@ module.exports = {
 
   showOnlyLike() {
     return _showOnlyLike;
-  },
-
-  toggleLike(id) {
-    _products[id].liked = !_products[id].liked;
-    emitChange();
   },
 
   filteredProducts() {

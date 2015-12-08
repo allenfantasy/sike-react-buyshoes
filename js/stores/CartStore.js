@@ -1,5 +1,7 @@
 'use strict';
 import EventEmitter from 'events';
+import AppDispatcher from '../AppDispatcher';
+import UndoStore from './UndoStore'
 
 let emitter = new EventEmitter();
 
@@ -14,8 +16,16 @@ let _cartItems = {
   // },
 };
 
-module.exports = {
-  addCartItem(productId) {
+AppDispatcher.register((action) => {
+  AppDispatcher.waitFor([UndoStore.getToken()])
+  let handler = handlers[action.type];
+
+  handler && handler(action);
+})
+
+let handlers = {
+  addCartItem(action) {
+    let {productId} = action;
     if (_cartItems[productId]) {
       _cartItems[productId].quantity += 1;
     } else {
@@ -27,12 +37,14 @@ module.exports = {
     emitChange();
   },
 
-  removeCartItem(productId) {
+  removeCartItem(action) {
+    let {productId} = action;
     delete _cartItems[productId];
     emitChange();
   },
 
-  updateCartItemQuantity(productId, quantity) {
+  updateCartItemQuantity(action) {
+    let {productId, quantity} = action;
     if (!_cartItems[productId]) return;
     if (quantity <= 0) {
       delete _cartItems[productId];
@@ -41,6 +53,15 @@ module.exports = {
     }
     emitChange();
   },
+
+  undoShoppingCart(actions) {
+    let {cartItems} = actions
+    _cartItems = cartItems;
+    emitChange()
+  }
+}
+
+export default {
 
   getCartItems() {
     return _cartItems;

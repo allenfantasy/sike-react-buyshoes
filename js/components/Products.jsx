@@ -12,14 +12,9 @@ import CartStore from '../stores/CartStore';
 import LikeStore from '../stores/LikeStore';
 import ProductStore from '../stores/ProductStore';
 
-let {addCartItem} = CartStore;
+import {addCartItem, toggleLikeProduct} from '../actions';
 
 let Product = React.createClass({
-  like(id) {
-    LikeStore.toggle(id);
-    ProductStore.toggleLike(id);
-  },
-
   renderControl(id) {
     let {cartItems} = this.props;
     if (cartItems[id]) {
@@ -53,7 +48,7 @@ let Product = React.createClass({
             {name}
           </div>
 
-          <img onClick={this.like.bind(null, id)} className="product__heart" src={isLiked ? "img/heart-liked.svg" : "img/heart.svg"} alt="" />
+          <img onClick={toggleLikeProduct.bind(null, id)} className="product__heart" src={isLiked ? "img/heart-liked.svg" : "img/heart.svg"} alt="" />
         </div>
 
       </div>
